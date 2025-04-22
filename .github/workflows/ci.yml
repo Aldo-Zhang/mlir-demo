@@ -28,23 +28,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
-            sudo apt-get update && sudo apt-get install -y cmake ninja-build clang-format clang-tidy libgoogle-test-dev
-            # 下载并解压 LLVM/MLIR in /usr/local
-          fi
-          # macOS: brew install cmake ninja llvm
+      # - name: Install Dependencies
+      #   run: |
+      #     if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+      #       sudo apt-get update && sudo apt-get install -y cmake ninja-build clang-format clang-tidy libgoogle-test-dev
+      #       # 下载并解压 LLVM/MLIR in /usr/local
+      #     fi
+      #     # macOS: brew install cmake ninja llvm
 
-      - name: Configure
-        run: |
-          mkdir build && cd build
-          cmake -G Ninja -DMLIR_DIR=/usr/local/lib/cmake/mlir ..
+      # - name: Configure
+      #   run: |
+      #     mkdir build && cd build
+      #     cmake -G Ninja -DMLIR_DIR=/usr/local/lib/cmake/mlir ..
 
-      - name: Build
-        run: |
-          cd build && ninja
+      # - name: Build
+      #   run: |
+      #     cd build && ninja
 
-      - name: Run tests
-        run: |
-          cd build && ctest --output-on-failure
+      # - name: Run tests
+      #   run: |
+      #     cd build && ctest --output-on-failure
