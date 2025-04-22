@@ -18,7 +18,7 @@ This project is intended to demonstrate the core concepts of building and runnin
 1. **Custom Dialect**: Defines a new MLIR dialect with custom operations.
 2. **Transformation Pass**: Implements a pass that transforms or optimizes dialect operations.
 3. **Example Frontend**: Includes a small driver to parse and execute MLIR files.
-4. **CI Integration**: Continuous integration using GitHub Actions to ensure reproducibility.
+4. **CI Integration**: Continuous integrations using GitHub Actions to ensure reproducibility.
 
 ## Prerequisites
 
