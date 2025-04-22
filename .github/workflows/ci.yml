@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main", "dev"]
+  pull_request:
+    branches: [ "main", "dev"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+            sudo apt-get update && sudo apt-get install -y cmake ninja-build clang-format clang-tidy libgoogle-test-dev
+            # 下载并解压 LLVM/MLIR in /usr/local
+          fi
+          # macOS: brew install cmake ninja llvm
+
+      - name: Configure
+        run: |
+          mkdir build && cd build
+          cmake -G Ninja -DMLIR_DIR=/usr/local/lib/cmake/mlir ..
+
+      - name: Build
+        run: |
+          cd build && ninja
+
+      - name: Run tests
+        run: |
+          cd build && ctest --output-on-failure
