@@ -1,5 +1,5 @@
-#include "../include/DemoDialect.h"
-#include "../include/DemoOps.h"
+#include "Demo/DemoDialect.h"
+#include "Demo/DemoOps.h"
 
 #include "mlir/IR/Dialect.h"
 #include "mlir/IR/MLIRContext.h"
@@ -14,16 +14,15 @@
 #include "llvm/Support/ToolOutputFile.h"
 
 int main(int argc, char **argv) {
-  mlir::registerAllPasses();
+  // mlir::registerAllPasses();
   
-  // 注册我们的方言
+  // 注册我们的方言 - 修复注册代码
   mlir::DialectRegistry registry;
-  registry.insert<mlir::StandardOpsDialect>();
-  registry.insert<demo::DemoDialect>();
+
+  mlir::MLIRContext context(registry);
   
-  // 其他需要的方言
-  // registry.insert<mlir::arith::ArithDialect>();
-  // registry.insert<mlir::func::FuncDialect>();
+  // StandardOpsDialect 在新版 MLIR 中已被弃用，使用其他核心方言
+  registry.insert<mlir::demo::DemoDialect>();
   
   return mlir::asMainReturnCode(
     mlir::MlirOptMain(argc, argv, "Demo dialect MLIR optimizer driver\n", registry));
