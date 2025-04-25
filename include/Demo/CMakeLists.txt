@@ -1,0 +1,8 @@
+set(LLVM_TARGET_DEFINITIONS DemoDialect.td)
+mlir_tablegen(DemoDialect.h.inc -gen-dialect-decls)
+mlir_tablegen(DemoDialect.cpp.inc -gen-dialect-defs)
+add_public_tablegen_target(DemoDialectIncGen)
+set(LLVM_TARGET_DEFINITIONS DemoOps.td)
+mlir_tablegen(DemoOps.h.inc -gen-op-decls)
+mlir_tablegen(DemoOps.cpp.inc -gen-op-defs)
+add_public_tablegen_target(DemoOpsIncGen)

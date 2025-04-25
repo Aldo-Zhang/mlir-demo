@@ -1,7 +1,7 @@
-#ifndef DEMO_DIALECT
-#define DEMO_DIALECT
+#ifndef DEMO_DIALECT_TD
+#define DEMO_DIALECT_TD
 
-include "/Users/aldo/mlir-demo/llvm-project/mlir/include/mlir/IR/DialectBase.td"
+include "mlir/IR/DialectBase.td"
 
 def Demo_Dialect : Dialect {
     let name = "demo";
@@ -9,7 +9,9 @@ def Demo_Dialect : Dialect {
     let description = [{
         This dialect provides a demo.add operation for illustration.
     }];
-    let cppNamespace = "demo";
+
+    // Use the absolute namespace mlir::demo
+    let cppNamespace = "::mlir::demo";
 }
 
-#endif // DEMO_DIALECT
+#endif // DEMO_DIALECT_TD
