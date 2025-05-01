@@ -37,40 +37,16 @@ add_definitions(${LLVM_DEFINITIONS})
 add_definitions(${MLIR_DEFINITIONS})
 
 # Add all targets depends on all-targets
-add_custom_target(all-targets ALL)
-add_custom_command(
-    TARGET all-targets
-    POST_BUILD
-    COMMAND ${CMAKE_COMMAND} --install .
-    COMMENT "Install project ...")
+# add_custom_target(all-targets ALL)
+# add_custom_command(
+#     TARGET all-targets
+#     POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} --install .
+#     COMMENT "Install project ...")
 
 # Add subdirectories for the trace of the target
 add_subdirectory(include/Demo)
 add_subdirectory(lib)
-
-# # 设置 TableGen 生成文件
-# set(LLVM_TARGET_DEFINITIONS include/DemoDialect.td)
-# mlir_tablegen(DemoDialect.h.inc -gen-dialect-decls)
-# mlir_tablegen(DemoDialect.cpp.inc -gen-dialect-defs)
-# add_public_tablegen_target(DemoDialectIncGen)
-
-# set(LLVM_TARGET_DEFINITIONS include/DemoOps.td)
-# mlir_tablegen(DemoOps.h.inc -gen-op-decls)
-# mlir_tablegen(DemoOps.cpp.inc -gen-op-defs)
-# add_public_tablegen_target(DemoOpsIncGen)
-
-# 构建 Demo 方言库
-# add_mlir_dialect_library(MLIRDemo
-#   lib/Demo/DemoDialect.cpp
-#   lib/Demo/DemoOps.cpp
-
-#   DEPENDS
-#   DemoOpsIncGen
-
-#   LINK_LIBS PUBLIC
-#   MLIRIR
-#   MLIRInferTypeOpInterface
-# )
 
 # 构建 demo-opt 工具
 add_llvm_executable(demo-opt
